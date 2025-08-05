@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap  } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from '../../enviroments/enviroment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = environment.apiUrl;
   private tokenKey = 'auth_token';
 
   private authStatus = new BehaviorSubject<boolean>(this.hasToken());

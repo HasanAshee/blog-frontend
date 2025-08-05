@@ -1,59 +1,83 @@
-# BlogFrontend
+# Blog-App (Frontend/Backend)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
+Una plataforma/red social, donde usuarios pueden compartir pensamientos, experiencias, etc. 
 
-## Development server
+---
 
-To start a local development server, run:
+## 📜 Sobre el Proyecto
 
-```bash
-ng serve
-```
+Este proyecto lo llevé a cabo para demostrarme que podia hacer un CRUD de manera profesional, y queria implementar NestJS para el backend
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## ✨ Funcionalidades Clave
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+* **Autenticación de Usuarios:** Registro e inicio de sesión con JWT para proteger rutas y acciones.
+* **Gestión de Perfiles:** Los usuarios pueden editar sus perfiles, incluyendo nombre, biografía y foto.
+* **CRUD de Artículos:** Sistema completo para Crear, Leer, Actualizar y Borrar artículos.
+* **Editor de Texto Enriquecido:** Formulario para crear/editar artículos con opciones de formato (negrita, cursiva, etc.).
+* **Interacción Social:** Sistema de Likes/Dislikes y sección de comentarios en cada artículo.
+* **Autorización:** Los usuarios solo pueden editar o eliminar su propio contenido (artículos y comentarios).
+* **Diseño Responsivo:** Interfaz adaptable a diferentes tamaños de pantalla con un tema oscuro.
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🛠️ Tecnologías Utilizadas
 
-```bash
-ng generate --help
-```
+Lista las tecnologías principales que usaste.
 
-## Building
+#### **Frontend**
+* Angular
+* TypeScript
+* RxJS
+* Angular Material
+* ngx-editor
 
-To build the project run:
+#### **Backend**
+* NestJS
+* TypeScript
+* MongoDB con Mongoose
+* Passport.js (para autenticación JWT)
+* Class-validator
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🚀 Cómo Empezar
 
-## Running unit tests
+Instrucciones para que otro desarrollador pueda ejecutar tu proyecto en su máquina local.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### **Prerrequisitos**
 
-```bash
-ng test
-```
+* Node.js (v18 o superior)
+* NPM
+* Angular CLI (solo para el frontend: `npm install -g @angular/cli`)
+* Una base de datos de MongoDB (local o en la nube como MongoDB Atlas)
 
-## Running end-to-end tests
+### **Instalación**
 
-For end-to-end (e2e) testing, run:
+1.  Clona el repositorio:
+    ```sh
+    git clone [https://github.com/HasanAshee/blog-frontend.git](https://github.com/HasanAshee/blog-frontend.git)
+    ```
+2.  Navega a la carpeta del proyecto:
+    ```sh
+    cd NOMBRE_DEL_REPO
+    ```
+3.  Instala las dependencias:
+    ```sh
+    npm install
+    ```
+4.  **(Solo para el Backend)** Crea un archivo `.env` en la raíz y añade tus variables de entorno:
+    ```
+    DATABASE_URL=TU_CADENA_DE_CONEXION_DE_MONGODB
+    JWT_SECRET=UN_SECRETO_LARGO_Y_DIFICIL
+    ```
+5.  Inicia el servidor de desarrollo:
+    * **Frontend:** `ng serve`
+    * **Backend:** `npm run start:dev`
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📝 Licencia
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Distribuido bajo la Licencia MIT. Ver `LICENSE` para más información.

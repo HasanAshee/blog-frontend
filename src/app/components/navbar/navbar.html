@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+  <span routerLink="/" style="cursor: pointer;">Mi Blog</span>
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="!isLoggedIn">
+    <button mat-button routerLink="/login">Login</button>
+    <button mat-button routerLink="/register">Register</button>
+  </ng-container>
+
+  <ng-container *ngIf="isLoggedIn">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </ng-container>
+</mat-toolbar>
+
+<mat-menu #userMenu="matMenu">
+  <button mat-menu-item [routerLink]="['/profile', currentUserId]" *ngIf="currentUserId">
+    <mat-icon>account_box</mat-icon>
+    <span>Mi Perfil</span>
+  </button>
+  <button mat-menu-item routerLink="/settings">
+    <mat-icon>settings</mat-icon>
+    <span>Ajustes</span>
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Cerrar Sesión</span>
+  </button>
+</mat-menu>

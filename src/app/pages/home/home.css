@@ -1,0 +1,97 @@
+.container {
+  padding: 20px;
+}
+
+.header {
+  max-width: 800px;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.articles-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.article-card {
+  width: 100%;
+  max-width: 800px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  text-align: center;
+  border: 2px dashed #555;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.empty-state h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.article-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.article-actions button mat-icon {
+  transition: color 0.2s ease-in-out;
+}
+
+.article-actions button:hover mat-icon {
+  color: #ffffff;
+}
+
+.mat-icon.active {
+  color: #9c27b0;
+}
+
+mat-card-subtitle a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+}
+
+mat-card-subtitle a:hover {
+  color: #9c27b0;
+  text-decoration: underline;
+}
+
+.date-separator {
+  margin: 0 8px;
+}
+
+mat-card-title a {
+  text-decoration: none;
+  color: inherit;
+}
+mat-card-title a:hover {
+  text-decoration: underline;
+}
+
+.comments-button:hover::ng-deep .mat-icon {
+  color: rgba(255, 255, 255, 0.7) !important;
+}

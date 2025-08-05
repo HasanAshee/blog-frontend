@@ -1,0 +1,27 @@
+<div class="form-container">
+  <mat-card>
+    <mat-card-title>Editar Perfil</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="profileForm" (ngSubmit)="submitForm()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Biografía</mat-label>
+          <textarea matInput formControlName="bio" rows="4"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>URL de la Foto de Perfil</mat-label>
+          <input matInput formControlName="profilePictureUrl" placeholder="https://ejemplo.com/imagen.png">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">
+          Guardar Cambios
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

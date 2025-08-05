@@ -1,0 +1,48 @@
+<div class="container" *ngIf="profileData$ | async as data; else loading">
+
+  <div class="profile-header">
+    <img [src]="data.user.profilePictureUrl || 'assets/default-avatar.png'" alt="Foto de perfil" class="avatar">
+    <h1>{{ data.user.name }}</h1>
+    <p class="bio">{{ data.user.bio || 'Este usuario aún no ha añadido una biografía.' }}</p>
+  </div>
+
+  <h2 class="articles-header">Artículos de {{ data.user.name }}</h2>
+  <div class="articles-column">
+    <mat-card *ngFor="let article of data.articles" class="article-card">
+      <mat-card-header>
+        <mat-card-title>{{ article.title }}</mat-card-title>
+        <mat-card-subtitle>
+          Publicado el {{ article.createdAt | date:'d MMMM, yyyy' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div [innerHTML]="article.content"></div>
+      </mat-card-content>
+
+      <mat-card-actions class="article-actions">
+        <div>
+          <button mat-icon-button class="comments-button" [routerLink]="['/article', article._id]">
+            <mat-icon>chat_bubble_outline</mat-icon>
+          </button>
+          <span>{{ article.commentCount }}</span>
+        </div>
+        <div>
+          <button mat-icon-button (click)="likeArticle(article)">
+            <mat-icon [class.active]="article.likes.includes(currentUserId)">thumb_up</mat-icon>
+          </button>
+          <span>{{ article.likes.length }}</span>
+
+          <button mat-icon-button (click)="dislikeArticle(article)">
+            <mat-icon [class.active]="article.dislikes.includes(currentUserId)">thumb_down</mat-icon>
+          </button>
+          <span>{{ article.dislikes.length }}</span>
+        </div>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading-container"><mat-spinner diameter="50"></mat-spinner></div>
+</ng-template>

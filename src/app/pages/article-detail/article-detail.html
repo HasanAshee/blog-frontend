@@ -1,0 +1,13 @@
+<div class="container" *ngIf="article$ | async as article">
+  <h1>{{ article.title }}</h1>
+  <div class="author-info">
+    Por {{ article.author.name }} el {{ article.createdAt | date:'d MMMM, yyyy' }}
+  </div>
+  <div class="content" [innerHTML]="article.content"></div>
+
+  <hr>
+
+  <h2>Comentarios ({{ (comments$ | async)?.length || 0 }})</h2>
+
+  <app-comments [comments]="comments$ | async" [articleId]="articleId" (commentPosted)="loadComments()"></app-comments>
+</div>

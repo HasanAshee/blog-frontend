@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="header">
+    <h2>Últimos Artículos</h2>
+    <button mat-flat-button color="primary" *ngIf="currentUserId" routerLink="/articles/create">Crear Artículo</button>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  </ng-template>
+
+  <ng-container *ngIf="articles$ | async as articles; else loading">
+
+    <div *ngIf="articles.length === 0" class="empty-state">
+      <h3>¡Bienvenido a tu Blog!</h3>
+      <p>Aún no hay artículos publicados. ¡Sé el primero en crear uno!</p>
+      <button mat-raised-button color="primary" routerLink="/articles/create">Crear mi primer artículo</button>
+    </div>
+
+    <div *ngIf="articles.length > 0" class="articles-column">
+      <mat-card *ngFor="let article of articles" class="article-card" >
+        <mat-card-header>
+          <img mat-card-avatar [src]="article.author.profilePictureUrl || 'assets/default-avatar.png'" alt="Foto de {{ article.author.name }}">
+          <mat-card-title>
+            <a [routerLink]="['/article', article._id]">{{ article.title }}</a>
+          </mat-card-title>
+          <mat-card-subtitle>
+            Por: <a [routerLink]="['/profile', article.author._id]">{{ article.author.name }}</a>
+            <span class="date-separator">|</span>
+            <span>{{ article.createdAt | date:'d MMMM, yyyy' }}</span>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div [innerHTML]="article.content"></div>
+        </mat-card-content>
+        <mat-card-actions class="article-actions">
+          <div>
+            <button mat-icon-button (click)="likeArticle(article)">
+              <mat-icon [class.active]="article.likes.includes(currentUserId)">thumb_up</mat-icon>
+            </button>
+            <span>{{ article.likes.length }}</span>
+
+            <button mat-icon-button (click)="dislikeArticle(article)">
+              <mat-icon [class.active]="article.dislikes.includes(currentUserId)">thumb_down</mat-icon>
+            </button>
+            <span>{{ article.dislikes.length }}</span>
+          </div>
+
+          <div>
+            <button mat-icon-button class="comments-button" [routerLink]="['/article', article._id]">
+              <mat-icon>chat_bubble_outline</mat-icon>
+            </button>
+            <span>{{ article.commentCount }}</span>
+          </div>
+
+          <div>
+            <button *ngIf="article.author._id === currentUserId" mat-button color="accent" [routerLink]="['/articles/edit', article._id]">Editar</button>
+            <button *ngIf="article.author._id === currentUserId" mat-button color="warn" (click)="deleteArticle(article._id)">Borrar</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </ng-container>
+</div>

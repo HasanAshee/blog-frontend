@@ -1,0 +1,49 @@
+<div class="comments-section">
+  <mat-card class="comment-form-card" *ngIf="isLoggedIn">
+    <mat-card-content>
+      <form [formGroup]="commentForm" (ngSubmit)="postComment()">
+        <mat-form-field appearance="outline">
+          <mat-label>Escribe un comentario...</mat-label>
+          <textarea matInput formControlName="content" rows="3"></textarea>
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit" [disabled]="commentForm.invalid">
+          Publicar
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="!isLoggedIn" class="login-prompt">
+    <p>Debes <a routerLink="/login">iniciar sesión</a> para dejar un comentario.</p>
+  </div>
+
+  <div class="comments-list">
+    <mat-card *ngFor="let comment of comments" class="comment-card">
+      <mat-card-header>
+        <img mat-card-avatar [src]="comment.author.profilePictureUrl || 'assets/default-avatar.png'" alt="Avatar de {{ comment.author.name }}">
+        <mat-card-title>{{ comment.author.name }}</mat-card-title>
+        <mat-card-subtitle>{{ comment.createdAt | date:'medium' }}</mat-card-subtitle>
+
+        <span class="spacer"></span>
+        <ng-container *ngIf="comment.author._id === currentUserId">
+          <button mat-icon-button [matMenuTriggerFor]="commentMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #commentMenu="matMenu">
+            <button mat-menu-item (click)="editComment(comment)">
+              <mat-icon>edit</mat-icon>
+              <span>Editar</span>
+            </button>
+            <button mat-menu-item (click)="deleteComment(comment._id)">
+              <mat-icon>delete</mat-icon>
+              <span>Borrar</span>
+            </button>
+          </mat-menu>
+        </ng-container>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ comment.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

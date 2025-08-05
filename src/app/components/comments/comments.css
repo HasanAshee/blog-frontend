@@ -1,0 +1,38 @@
+.comments-section {
+  margin-top: 20px;
+}
+
+.comment-form-card,
+.comment-card {
+  margin-bottom: 20px;
+}
+
+.comment-form-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-form-card button {
+  align-self: flex-end;
+}
+
+.login-prompt {
+  text-align: center;
+  padding: 20px;
+  background-color: #424242;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.login-prompt a {
+  color: #ab47bc;
+  text-decoration: underline;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-card-header button[mat-icon-button] mat-icon {
+  color: rgba(255, 255, 255, 0.7);
+}

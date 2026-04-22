@@ -3,17 +3,14 @@
   <div class="author-info">
     Por {{ article.author.name }} el {{ article.createdAt | date:'d MMMM, yyyy' }}
   </div>
+  <div class="content" [innerHTML]="article.content"></div>
   <div class="copy-link-container">
-  <button mat-stroked-button (click)="copyLink()" class="copy-link-btn">
+    <button mat-stroked-button (click)="copyLink()" class="copy-link-btn">
       <mat-icon>link</mat-icon>
       {{ copied ? 'Link copiado!' : 'Copiar link' }}
     </button>
   </div>
-  <div class="content" [innerHTML]="article.content"></div>
-
   <hr>
-
   <h2>Comentarios ({{ (comments$ | async)?.length || 0 }})</h2>
-
   <app-comments [comments]="comments$ | async" [articleId]="articleId" (commentPosted)="loadComments()"></app-comments>
 </div>

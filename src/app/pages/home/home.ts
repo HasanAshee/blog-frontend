@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { NotificationService } from '../../services/notification';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
@@ -31,10 +33,18 @@ export class Home implements OnInit {
     public dialog: MatDialog,
   ) {}
 
+  searchTerm = '';
+  filteredArticles: any[] = [];
+  allArticles: any[] = [];
+
   ngOnInit(): void {
-    this.articles$ = this.articleService.getArticles();
+    this.articleService.getArticles().subscribe(articles => {
+      this.allArticles = articles;
+      this.filteredArticles = articles;
+    });
     this.currentUserId = this.authService.getUserId();
   }
+
   deleteArticle(id: string): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { message: '¿Estás seguro de que deseas eliminar este artículo?' },
@@ -51,6 +61,12 @@ export class Home implements OnInit {
         });
       }
     });
+  }
+
+  filterArticles(): void {
+    this.filteredArticles = this.allArticles.filter(article =>
+        article.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+     );
   }
 
   likeArticle(article: any) {

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://blog-backend-4lie.onrender.com';
 
   constructor(private http: HttpClient) { }
 

@@ -3,6 +3,12 @@
   <div class="author-info">
     Por {{ article.author.name }} el {{ article.createdAt | date:'d MMMM, yyyy' }}
   </div>
+  <div class="copy-link-container">
+  <button mat-stroked-button (click)="copyLink()" class="copy-link-btn">
+      <mat-icon>link</mat-icon>
+      {{ copied ? 'Link copiado!' : 'Copiar link' }}
+    </button>
+  </div>
   <div class="content" [innerHTML]="article.content"></div>
 
   <hr>

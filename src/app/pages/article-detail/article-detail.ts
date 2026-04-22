@@ -17,7 +17,7 @@ export class ArticleDetail implements OnInit {
   private commentsSubject = new BehaviorSubject<any[]>([]);
   comments$ = this.commentsSubject.asObservable();
   articleId!: string;
-
+  copied = false;
 
   constructor(private route: ActivatedRoute, private articleService: Article) {}
 
@@ -33,5 +33,11 @@ export class ArticleDetail implements OnInit {
     this.articleService.getComments(this.articleId).subscribe(comments => {
       this.commentsSubject.next(comments);
     });
+  }
+
+  copyLink(): void {
+    navigator.clipboard.writeText(window.location.href);
+    this.copied = true;
+    setTimeout(() => this.copied = false, 2000);
   }
 }

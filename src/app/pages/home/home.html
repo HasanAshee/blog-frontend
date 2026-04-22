@@ -55,4 +55,13 @@
       </mat-card-actions>
     </mat-card>
   </div>
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button mat-icon-button (click)="loadPage(currentPage - 1)" [disabled]="currentPage === 1">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button mat-icon-button (click)="loadPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
 </div>

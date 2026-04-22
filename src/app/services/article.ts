@@ -19,8 +19,8 @@ export class Article {
 
   constructor(private http: HttpClient) { }
 
-  getArticles(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/articles`);
+  getArticles(page: number = 1): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/articles?page=${page}`);
   }
   getArticle(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/articles/${id}`);

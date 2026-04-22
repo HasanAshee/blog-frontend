@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 import { MaterialModule } from '../../material-module';
 import { Article } from '../../services/article';
 import { AuthService } from '../../services/auth';
@@ -13,18 +12,18 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    CommonModule,
-    MaterialModule,
-    RouterModule,
-    FormsModule
-  ],
+  imports: [CommonModule, MaterialModule, RouterModule, FormsModule],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
 export class Home implements OnInit {
-  articles$!: Observable<any[]>;
+  filteredArticles: any[] = [];
+  allArticles: any[] = [];
   currentUserId: string | null = null;
+  searchTerm = '';
+
+  currentPage = 1;
+  totalPages = 1;
 
   constructor(
     private articleService: Article,
@@ -33,40 +32,41 @@ export class Home implements OnInit {
     public dialog: MatDialog,
   ) {}
 
-  searchTerm = '';
-  filteredArticles: any[] = [];
-  allArticles: any[] = [];
-
   ngOnInit(): void {
-    this.articleService.getArticles().subscribe(articles => {
-      this.allArticles = articles;
-      this.filteredArticles = articles;
-    });
     this.currentUserId = this.authService.getUserId();
+    this.loadPage(1);
+  }
+
+  loadPage(page: number): void {
+    this.articleService.getArticles(page).subscribe((res: any) => {
+      this.allArticles = res.articles;
+      this.filteredArticles = res.articles;
+      this.totalPages = res.totalPages;
+      this.currentPage = page;
+    });
+  }
+
+  filterArticles(): void {
+    this.filteredArticles = this.allArticles.filter(article =>
+      article.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
   deleteArticle(id: string): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { message: '¿Estás seguro de que deseas eliminar este artículo?' },
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.articleService.deleteArticle(id).subscribe({
           next: () => {
             this.notificationService.showSuccess('Artículo borrado exitosamente');
-            this.articles$ = this.articleService.getArticles();
+            this.loadPage(this.currentPage);
           },
-          error: (err) => this.notificationService.showError('Error al borrar el artículo')
+          error: () => this.notificationService.showError('Error al borrar el artículo')
         });
       }
     });
-  }
-
-  filterArticles(): void {
-    this.filteredArticles = this.allArticles.filter(article =>
-        article.title.toLowerCase().includes(this.searchTerm.toLowerCase())
-     );
   }
 
   likeArticle(article: any) {

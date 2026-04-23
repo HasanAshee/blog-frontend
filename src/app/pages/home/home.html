@@ -1,6 +1,20 @@
 <div class="container">
   <div class="header">
     <h2>Últimos Artículos</h2>
+    <div class="feed-tabs" *ngIf="currentUserId">
+      <button
+        mat-button
+        [class.active-tab]="activeTab === 'all'"
+        (click)="switchTab('all')">
+        Todos
+      </button>
+      <button
+        mat-button
+        [class.active-tab]="activeTab === 'following'"
+        (click)="switchTab('following')">
+        Siguiendo
+      </button>
+    </div>
     <input
       [(ngModel)]="searchTerm"
       (input)="filterArticles()"

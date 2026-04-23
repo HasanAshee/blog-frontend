@@ -50,4 +50,7 @@ export class Article {
   deleteComment(commentId: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/comments/${commentId}`);
   }
+  getFollowingFeed(page: number = 1): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/articles/feed/following?page=${page}`);
+  }
 }

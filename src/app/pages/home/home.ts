@@ -25,6 +25,8 @@ export class Home implements OnInit {
   currentPage = 1;
   totalPages = 1;
 
+  activeTab: 'all' | 'following' = 'all';
+
   constructor(
     private articleService: Article,
     private authService: AuthService,
@@ -37,8 +39,18 @@ export class Home implements OnInit {
     this.loadPage(1);
   }
 
+  switchTab(tab: 'all' | 'following'): void {
+    this.activeTab = tab;
+    this.currentPage = 1;
+    this.loadPage(1);
+  }
+
   loadPage(page: number): void {
-    this.articleService.getArticles(page).subscribe((res: any) => {
+    const obs = this.activeTab === 'following'
+      ? this.articleService.getFollowingFeed(page)
+      : this.articleService.getArticles(page);
+
+    obs.subscribe((res: any) => {
       this.allArticles = res.articles;
       this.filteredArticles = res.articles;
       this.totalPages = res.totalPages;
@@ -50,6 +62,13 @@ export class Home implements OnInit {
     this.filteredArticles = this.allArticles.filter(article =>
       article.title.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  getReadingTime(content: string): number {
+    const wordsPerMinute = 200;
+    const text = content.replace(/<[^>]*>/g, '');
+    const wordCount = text.trim().split(/\s+/).length;
+    return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
   }
 
   deleteArticle(id: string): void {
@@ -81,11 +100,5 @@ export class Home implements OnInit {
       article.likes = updatedArticle.likes;
       article.dislikes = updatedArticle.dislikes;
     });
-  }
-  getReadingTime(content: string): number {
-    const wordsPerMinute = 200;
-    const text = content.replace(/<[^>]*>/g, '');
-    const wordCount = text.trim().split(/\s+/).length;
-    return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
   }
 }

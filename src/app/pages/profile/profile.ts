@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 import { MaterialModule } from '../../material-module';
 import { UserService } from '../../services/user';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { Article } from '../../services/article';
-
 
 @Component({
   selector: 'app-profile',
@@ -19,8 +17,9 @@ import { Article } from '../../services/article';
   styleUrl: './profile.css'
 })
 export class ProfileComponent implements OnInit {
-  profileData$!: Observable<any>;
+  profileData: any = null;
   currentUserId: string | null = null;
+  profileUserId: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,10 +30,29 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserId = this.authService.getUserId();
-    const userId = this.route.snapshot.paramMap.get('id');
-    if (userId) {
-      this.profileData$ = this.userService.getProfile(userId);
+    this.profileUserId = this.route.snapshot.paramMap.get('id');
+    if (this.profileUserId) {
+      this.loadProfile();
     }
+  }
+
+  loadProfile(): void {
+    if (!this.profileUserId) return;
+    this.userService.getProfile(this.profileUserId).subscribe(data => {
+      this.profileData = data;
+    });
+  }
+
+  isFollowing(): boolean {
+    if (!this.profileData || !this.currentUserId) return false;
+    return this.profileData.user.followers?.some((id: string) => id === this.currentUserId);
+  }
+
+  toggleFollow(): void {
+    if (!this.profileUserId) return;
+    this.userService.followUser(this.profileUserId).subscribe(() => {
+      this.loadProfile();
+    });
   }
 
   likeArticle(article: any) {

@@ -16,4 +16,7 @@ export class UserService {
   updateProfile(profileData: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}/users/profile`, profileData);
   }
+  followUser(userId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/${userId}/follow`, {});
+  }
 }

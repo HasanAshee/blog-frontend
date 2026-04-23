@@ -70,3 +70,15 @@
 .comments-button:hover::ng-deep .mat-icon {
   color: rgba(255, 255, 255, 0.7) !important;
 }
+
+.follow-stats {
+  display: flex;
+  gap: 24px;
+  margin: 16px 0;
+  font-size: 0.95em;
+  color: #ccc;
+}
+
+.follow-btn {
+  margin-top: 12px;
+}

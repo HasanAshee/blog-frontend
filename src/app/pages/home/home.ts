@@ -8,11 +8,12 @@ import { NotificationService } from '../../services/notification';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog';
 import { FormsModule } from '@angular/forms';
+import { ArticleCard } from '../../components/article-card/article-card';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MaterialModule, RouterModule, FormsModule],
+  imports: [CommonModule, MaterialModule, RouterModule, FormsModule, ArticleCard],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })

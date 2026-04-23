@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Article } from '../../services/article';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { Comments } from '../../components/comments/comments';
 
 @Component({
   selector: 'app-article-detail',
-  imports: [CommonModule, MaterialModule, Comments],
+  imports: [CommonModule, MaterialModule, Comments, RouterModule],
   templateUrl: './article-detail.html',
   styleUrl: './article-detail.css'
 })

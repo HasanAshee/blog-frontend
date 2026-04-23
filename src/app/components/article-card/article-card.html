@@ -1,0 +1,51 @@
+<mat-card class="article-card">
+  <mat-card-header>
+    <img mat-card-avatar
+         [src]="article.author.profilePictureUrl || 'assets/default-avatar.png'"
+         [alt]="'Foto de ' + article.author.name">
+    <mat-card-title>
+      <a [routerLink]="['/article', article._id]">{{ article.title }}</a>
+    </mat-card-title>
+    <mat-card-subtitle>
+      Por: <a [routerLink]="['/profile', article.author._id]" class="author-link">{{ article.author.name }}</a>
+      <span class="date-separator">|</span>
+      <span>{{ article.createdAt | date:'d MMMM, yyyy' }}</span>
+      <span class="date-separator">|</span>
+      <span>{{ getReadingTime(article.content) }} min de lectura</span>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div [innerHTML]="article.content"></div>
+    <div class="article-tags" *ngIf="article.tags && article.tags.length > 0">
+      <a *ngFor="let tag of article.tags"
+         [routerLink]="['/tag', tag]"
+         class="tag-chip">
+        #{{ tag }}
+      </a>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="article-actions">
+    <div class="action-group">
+      <button mat-icon-button (click)="onLike()">
+        <mat-icon [class.active]="article.likes.includes(currentUserId)">thumb_up</mat-icon>
+      </button>
+      <span>{{ article.likes.length }}</span>
+      <button mat-icon-button (click)="onDislike()">
+        <mat-icon [class.active]="article.dislikes.includes(currentUserId)">thumb_down</mat-icon>
+      </button>
+      <span>{{ article.dislikes.length }}</span>
+    </div>
+    <div class="action-group">
+      <button mat-icon-button class="comments-button" [routerLink]="['/article', article._id]">
+        <mat-icon>chat_bubble_outline</mat-icon>
+      </button>
+      <span>{{ article.commentCount }}</span>
+    </div>
+    <div class="action-group" *ngIf="showOwnerActions && article.author._id === currentUserId">
+      <button mat-button color="accent" [routerLink]="['/articles/edit', article._id]">Editar</button>
+      <button mat-button color="warn" (click)="onDelete()">Borrar</button>
+    </div>
+  </mat-card-actions>
+</mat-card>

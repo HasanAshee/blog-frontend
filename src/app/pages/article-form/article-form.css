@@ -52,3 +52,38 @@ button {
 .ngx-editor-container ::ng-deep .NgxEditor__Placeholder::before {
   color: rgba(255, 255, 255, 0.5);
 }
+
+.tags-field {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.tags-field ::ng-deep .mat-mdc-chip-action-label {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px;
+}
+
+.tags-field ::ng-deep .mat-mdc-chip-remove {
+  width: 18px !important;
+  height: 18px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.tags-field ::ng-deep .mat-mdc-chip-remove:hover {
+  opacity: 1;
+}
+
+.tags-field ::ng-deep .mat-mdc-chip-remove .mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  line-height: 18px !important;
+  margin: 0 !important;
+}

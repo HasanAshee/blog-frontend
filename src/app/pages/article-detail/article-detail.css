@@ -36,3 +36,28 @@ h2 {
   font-weight: 700;
   margin-bottom: 24px;
 }
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tag-chip {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background-color: rgba(156, 39, 176, 0.15);
+  color: #ce93d8;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.tag-chip:hover {
+  background-color: rgba(156, 39, 176, 0.3);
+  color: #fff;
+}

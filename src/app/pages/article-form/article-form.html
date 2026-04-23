@@ -13,6 +13,31 @@
           <ngx-editor [editor]="editor" formControlName="content" [placeholder]="'Escribe tu artículo aquí...'"></ngx-editor>
         </div>
 
+        <mat-form-field appearance="outline" class="tags-field">
+          <mat-label>Tags</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Selección de tags">
+            <mat-chip-row *ngFor="let tag of tags" (removed)="removeTag(tag)">
+              {{ tag }}
+              <button matChipRemove [attr.aria-label]="'remover ' + tag">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input
+            #tagInput
+            placeholder="Nueva tag..."
+            [formControl]="tagCtrl"
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matAutocomplete]="auto"
+            (matChipInputTokenEnd)="addTag($event)">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedTag($event)">
+            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+              {{ tag }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
         <button mat-raised-button color="primary" type="submit" [disabled]="articleForm.invalid">
           Publicar
         </button>

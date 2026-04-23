@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -22,7 +24,9 @@ const MaterialComponents = [
   MatDialogModule,
   MatIconModule,
   MatMenuModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatChipsModule,
+  MatAutocompleteModule,
 ];
 
 @NgModule({

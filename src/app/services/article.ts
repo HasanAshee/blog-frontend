@@ -25,10 +25,11 @@ export class Article {
   getArticle(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/articles/${id}`);
   }
-  createArticle(articleData: { title: string, content: string }): Observable<any> {
+  createArticle(articleData: { title: string, content: string, tags?: string[] }): Observable<any> {
     return this.http.post(`${this.apiUrl}/articles`, articleData);
   }
-  updateArticle(id: string, articleData: { title: string, content: string }): Observable<any> {
+
+  updateArticle(id: string, articleData: { title: string, content: string, tags?: string[] }): Observable<any> {
     return this.http.patch(`${this.apiUrl}/articles/${id}`, articleData);
   }
   deleteArticle(id: string): Observable<any> {
@@ -52,5 +53,13 @@ export class Article {
   }
   getFollowingFeed(page: number = 1): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/articles/feed/following?page=${page}`);
+  }
+
+  getAllTags(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/articles/tags/all`);
+  }
+
+  getArticlesByTag(tag: string, page: number = 1): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/articles/tag/${tag}?page=${page}`);
   }
 }

@@ -41,4 +41,8 @@ export const routes: Routes = [
       path: 'article/:id',
        component: ArticleDetail
     },
+    {
+      path: 'tag/:tagName',
+      loadComponent: () => import('./pages/tag-page/tag-page').then(m => m.TagPage)
+    },
 ];

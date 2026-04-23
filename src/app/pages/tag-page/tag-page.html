@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="tag-header">
+    <h2>Artículos con la tag <span class="tag-highlight">#{{ tagName }}</span></h2>
+    <a routerLink="/" class="back-link">← Volver al feed</a>
+  </div>
+
+  <div *ngIf="articles.length === 0" class="empty-state">
+    <h3>No hay artículos con esta tag</h3>
+    <p>Todavía nadie publicó algo con <strong>#{{ tagName }}</strong>.</p>
+    <a mat-raised-button color="primary" routerLink="/">Volver al inicio</a>
+  </div>
+
+  <div *ngIf="articles.length > 0" class="articles-column">
+    <app-article-card
+      *ngFor="let article of articles"
+      [article]="article"
+      [currentUserId]="currentUserId"
+      [showOwnerActions]="false"
+      (like)="likeArticle($event)"
+      (dislike)="dislikeArticle($event)">
+    </app-article-card>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button mat-icon-button (click)="loadPage(currentPage - 1)" [disabled]="currentPage === 1">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button mat-icon-button (click)="loadPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>

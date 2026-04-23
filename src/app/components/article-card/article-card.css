@@ -1,0 +1,87 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.article-card {
+  width: 100%;
+}
+
+.article-card mat-card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.article-card mat-card-title a:hover {
+  text-decoration: underline;
+}
+
+mat-card-subtitle a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+}
+
+mat-card-subtitle a:hover {
+  color: #9c27b0;
+  text-decoration: underline;
+}
+
+.date-separator {
+  margin: 0 8px;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tag-chip {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(156, 39, 176, 0.15);
+  color: #ce93d8;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.tag-chip:hover {
+  background-color: rgba(156, 39, 176, 0.3);
+  color: #fff;
+}
+
+.article-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.article-actions button mat-icon {
+  transition: color 0.2s ease-in-out;
+}
+
+.article-actions button:hover mat-icon {
+  color: #ffffff;
+}
+
+.article-actions mat-icon.active {
+  color: #9c27b0;
+}
+
+.comments-button:hover ::ng-deep .mat-icon {
+  color: rgba(255, 255, 255, 0.7) !important;
+}

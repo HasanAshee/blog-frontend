@@ -4,6 +4,15 @@
     Por {{ article.author.name }} el {{ article.createdAt | date:'d MMMM, yyyy' }} · {{ getReadingTime(article.content) }} min de lectura
   </div>
   <div class="content" [innerHTML]="article.content"></div>
+
+  <div class="article-tags" *ngIf="article.tags && article.tags.length > 0">
+    <a *ngFor="let tag of article.tags"
+       [routerLink]="['/tag', tag]"
+       class="tag-chip">
+      #{{ tag }}
+    </a>
+  </div>
+
   <div class="copy-link-container">
     <button mat-stroked-button (click)="copyLink()" class="copy-link-btn">
       <mat-icon>link</mat-icon>

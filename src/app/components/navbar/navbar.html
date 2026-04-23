@@ -1,18 +1,41 @@
 <mat-toolbar color="primary">
   <span routerLink="/" style="cursor: pointer;">Mi Blog</span>
   <span class="spacer"></span>
-
   <ng-container *ngIf="!isLoggedIn">
     <button mat-button routerLink="/login">Login</button>
     <button mat-button routerLink="/register">Register</button>
   </ng-container>
-
   <ng-container *ngIf="isLoggedIn">
+    <button mat-icon-button [matMenuTriggerFor]="notifMenu" (click)="loadNotifications()">
+      <mat-icon [matBadge]="unreadCount" [matBadgeHidden]="unreadCount === 0" matBadgeColor="warn" matBadgeSize="small">
+        notifications
+      </mat-icon>
+    </button>
     <button mat-icon-button [matMenuTriggerFor]="userMenu">
       <mat-icon>account_circle</mat-icon>
     </button>
   </ng-container>
 </mat-toolbar>
+
+<mat-menu #notifMenu="matMenu" class="notif-menu">
+  <div class="notif-header">
+    <strong>Notificaciones</strong>
+  </div>
+  <div *ngIf="notifications.length === 0" class="notif-empty">
+    No tenés notificaciones
+  </div>
+  <button
+    mat-menu-item
+    *ngFor="let notif of notifications"
+    (click)="navigateNotif(notif)"
+    [class.unread]="!notif.read">
+    <img
+      [src]="notif.sender?.profilePictureUrl || 'assets/default-avatar.png'"
+      class="notif-avatar"
+      alt="avatar">
+    <span class="notif-text">{{ getNotificationText(notif) }}</span>
+  </button>
+</mat-menu>
 
 <mat-menu #userMenu="matMenu">
   <button mat-menu-item [routerLink]="['/profile', currentUserId]" *ngIf="currentUserId">

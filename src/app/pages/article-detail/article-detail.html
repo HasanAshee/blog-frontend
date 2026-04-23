@@ -1,7 +1,7 @@
 <div class="container" *ngIf="article$ | async as article">
   <h1>{{ article.title }}</h1>
   <div class="author-info">
-    Por {{ article.author.name }} el {{ article.createdAt | date:'d MMMM, yyyy' }}
+    Por {{ article.author.name }} el {{ article.createdAt | date:'d MMMM, yyyy' }} · {{ getReadingTime(article.content) }} min de lectura
   </div>
   <div class="content" [innerHTML]="article.content"></div>
   <div class="copy-link-container">

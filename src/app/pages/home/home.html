@@ -26,6 +26,8 @@
           Por: <a [routerLink]="['/profile', article.author._id]">{{ article.author.name }}</a>
           <span class="date-separator">|</span>
           <span>{{ article.createdAt | date:'d MMMM, yyyy' }}</span>
+          <span class="date-separator">|</span>
+          <span>{{ getReadingTime(article.content) }} min de lectura</span>
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>

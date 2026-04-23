@@ -40,4 +40,11 @@ export class ArticleDetail implements OnInit {
     this.copied = true;
     setTimeout(() => this.copied = false, 2000);
   }
+
+  getReadingTime(content: string): number {
+    const wordsPerMinute = 200;
+    const text = content.replace(/<[^>]*>/g, '');
+    const wordCount = text.trim().split(/\s+/).length;
+    return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
+  }
 }
